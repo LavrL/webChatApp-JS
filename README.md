@@ -11,7 +11,10 @@
 git clone https://github.com/LavrL/webChatApp-JS.git
 cd webChatApp-JS
 npm i
+```
 
+## Running 
+```bash
 npm run start
 ```
 
