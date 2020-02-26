@@ -8,11 +8,46 @@ body {
     font: 16px 'Roboto';
 }
 
+.container {
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.header {
+    display: flex;
+}
+
+.avatar {
+    width: 30%;
+    border: 1px solid black;
+}
+.room {
+    width: 70%;
+    border: 1px solid black;
+}
+
+.main-chat {
+    display: flex;
+}
+
+.menu-left {
+    border: 1px solid black;
+    height: 100vh;
+    width: 30%;
+}
+
+.chat-window {
+    width: 70%;
+    border: 1px solid black;
+    position: relative;
+}
+
 form {
+    position: absolute;
     background: lightgray;
     padding: 3px;
-    position: fixed;
-    bottom: 0;
+    bottom: 30px;
     width: 100%;
 }
 
