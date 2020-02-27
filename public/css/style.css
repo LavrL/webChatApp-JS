@@ -47,7 +47,7 @@ form {
     position: absolute;
     background: lightgray;
     padding: 3px;
-    bottom: 30px;
+    bottom: 39px;
     width: 100%;
 }
 
@@ -55,7 +55,7 @@ form input {
     border: 0;
     padding: 10px;
     width: 90%;
-    margin-right: .5%;
+    /* margin-right: .5%; */
 }
 
 form button {

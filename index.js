@@ -9,14 +9,23 @@ app.use(express.static(__dirname + '/public'));
 
 users = [];
 connection = [];
+var clientInfo = {};
 
-io.sockets.on('connection', function (socket) {
+io.on('connection', function (socket) {
   console.log("connected successfully");
   connection.push(socket);
+  
+  socket.on('joinRoom', function (req) {
+    clientInfo[socket.id] = req;
+    console.log('joined Room = ' + req.room);
+    socket.join(req.room);
+  })
 
-  socket.on('chat message', function (msg) {
-    io.emit('chat message', msg);
-    console.log('received message: ' + msg);
+  socket.on('chat message', function (info) {
+    // io.emit('chat message', msg);
+    // console.log('clientInfo[socket.id].room = ' + info.room);
+    socket.broadcast.to(info.room).emit("chat message", info.msg)
+    console.log('received message: ' + info.msg);
   });
 
   socket.on('disconnect', function (data) {
@@ -24,8 +33,5 @@ io.sockets.on('connection', function (socket) {
     console.log("Disconnected.");
   });
 
-  socket.on('send mess', function (data) {
-    io.sockets.emit('add mess', { mess: data.mess, name: data.name, className: data.className });
-  });
 });
 
