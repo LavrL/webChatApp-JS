@@ -23,7 +23,6 @@ io.on('connection', function (socket) {
 
   socket.on('chat message', function (info) {
     // io.emit('chat message', msg);
-    // console.log('clientInfo[socket.id].room = ' + info.room);
     socket.broadcast.to(info.room).emit("chat message", info.msg)
     console.log('received message: ' + info.msg);
   });
