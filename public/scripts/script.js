@@ -5,7 +5,11 @@ var room = parseSubmitRequest("room") || 'No Room Selected';
 $(function () {
     var socket = io();
     $('form').submit(function () {
-        socket.emit('chat message', { msg: $('#m').val(), room: room });
+        socket.emit('chat message', { 
+            msg: $('#m').val(), 
+            room: room 
+        });
+        
         $('#m').val('');
         return false;
     });

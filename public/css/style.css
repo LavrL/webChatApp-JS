@@ -6,6 +6,7 @@
 
 body {
     font: 16px 'Roboto';
+    overflow: hidden;
 }
 
 .container {
@@ -21,6 +22,12 @@ body {
 .avatar {
     width: 30%;
     border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.avatar .avatar-foto {
+    margin-right: 10px;
 }
 .room {
     width: 70%;
@@ -43,32 +50,35 @@ body {
     position: relative;
 }
 
-form {
+.input-form {
     position: absolute;
     background: lightgray;
     padding: 3px;
-    bottom: 39px;
+    bottom: 30px;
     width: 100%;
 }
 
-form input {
+.input-form input {
     border: 0;
     padding: 10px;
     width: 90%;
-    /* margin-right: .5%; */
+    outline: none;
 }
 
-form button {
+.input-form button {
     width: 9%;
     background: white;
     border: none;
     padding: 10px;
+    cursor: pointer;
+    outline: none;
 }
 
 #messages {
     list-style-type: none;
     margin: 0;
     padding: 0;
+    margin-bottom: 40px
 }
 
 #messages li {
@@ -77,8 +87,4 @@ form button {
 
 #messages li:nth-child(odd) {
     background: #eee;
-}
-
-#messages {
-    margin-bottom: 40px
 }
