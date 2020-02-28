@@ -14,7 +14,7 @@ var clientInfo = {};
 io.on('connection', function (socket) {
   console.log("connected successfully");
   connection.push(socket);
-  
+
   socket.on('joinRoom', function (req) {
     clientInfo[socket.id] = req;
     console.log('joined Room = ' + req.room);

@@ -20,6 +20,10 @@ body {
     justify-content: center;
 }
 
+.input-form__error-message{
+    color: red;
+}
+
 .input-form {
     background: white;
     padding: 70px 60px;

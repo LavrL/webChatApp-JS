@@ -8,13 +8,15 @@
   <link rel="shortcut icon" href="#">
   <link rel="stylesheet" type="text/css" href="css/front.css" />
   <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+  <script src="scripts/frontScript.js"> </script>
 </head>
 
 <body>
   <div class="main-page-container">
-    <form action="/chat.html" class="input-form">
+    <form action="/chat.html" name="loginForm"  class="input-form" onsubmit="return validateForm()">
       <h1 class="input-form__title input-form__title_big">Join Chat !</h1>
 
+      <div class="input-form__error-message"></div>
       <label class="input-form__field">
         <span class="input-form__text-label">username</span>
         <input class="input-form__text-input" type="text" name="name" autocomplete="on">
@@ -26,10 +28,13 @@
       </label>
 
       <div class="input-form__field">
-        <input class="input-form__button input-form__button_blue" type="submit" value="Join">
+        <input class="input-form__button input-form__button_blue" 
+               type="submit" 
+               value="Join" >
       </div>
 
     </form>
+
   </div>
 </body>
 
