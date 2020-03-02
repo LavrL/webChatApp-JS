@@ -26,13 +26,14 @@
 
       <div class="room">
         <h1 class="room-title"></h1>
+        <p class="room-description">Ideas for the weekend</p>
       </div>
     </section>
 
     <section class="main-chat">
       <div class="menu-left">
         <div class="menu-left__search">
-          <input class="menu-left__search-field" type="text" value="Search" name="searchUser">
+          <input class="menu-left__search-field" type="text" placeholder="Search" name="searchUser">
         </div>
         <ul class="main-chat__user-list">
 
@@ -59,7 +60,7 @@
         </ul>
       </div>
       <div class="chat-window">
-        <ul id="messages"></ul>
+        <ul id="messages" class="messages-list"></ul>
 
         <form id="messageForm" class="input-form">
           <input id="m" name="message" autocomplete="off" placeholder="Type a message" />

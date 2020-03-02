@@ -20,7 +20,7 @@ $(function () {
 socket.on('chat message', function (msg) {
     console.log('typed message', msg);
     $('#messages').append($('<li>').text(name + ' says: ' + msg));
-    // window.scrollTo(0, document.body.scrollHeight);
+    $('#messages').animate({ scrollTop: $('#messages').prop("scrollHeight") }, 500);
 });
 
 // fires when client successfully connects to the server
