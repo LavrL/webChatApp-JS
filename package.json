@@ -15,6 +15,6 @@
     "jquery": "^3.4.1"
   },
   "jest": {
-       "testURL": "https://web-chat-app-js.herokuapp.com/chat.html?username=lavr1"
-    }
+    "testURL": "https://web-chat-app-js.herokuapp.com/chat.html?username=lavr1"
+  }
 }
