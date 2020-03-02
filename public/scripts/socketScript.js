@@ -32,3 +32,11 @@ socket.on("connect", function () {
         room: room
     });
 });
+
+socket.on("message", function (msg) {
+    console.log("new message ");
+    var $messages = $("#messages");
+    var $message = $('<li></li>');
+    $message.append("<p>" + msg.text + "</p>");
+    $messages.append($message);
+})

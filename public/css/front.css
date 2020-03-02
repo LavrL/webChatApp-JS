@@ -20,7 +20,7 @@ body {
     justify-content: center;
 }
 
-.input-form__error-message{
+.input-form__error-message {
     color: red;
 }
 
@@ -39,6 +39,7 @@ body {
 .input-form__title {
     color: #14213d;
     margin: 0;
+    margin-bottom: 10px;
 }
 
 .input-form__title_big {
@@ -59,8 +60,15 @@ body {
 
 .input-form__text-input {
     width: 100%;
-    height: 23px;
+    height: 30px;
     border-radius: 2px;
+    margin-top: 5px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 24px;
+    padding-left: 10px;
     background-color: #ffffff;
     border: 1px solid #14213d;
     outline: none;
@@ -89,7 +97,6 @@ body {
 }
 
 @media only screen and (max-width: 600px) {
-
     .input-form {
         width: 100%;
         padding: 50px 60px;

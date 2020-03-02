@@ -21,40 +21,105 @@ body {
 
 .avatar {
     width: 30%;
-    border: 1px solid black;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 10px;
+    background: #261C46;
 }
-.avatar .avatar-foto {
+
+.avatar-foto {
     margin-right: 10px;
+    border-radius: 50%;
 }
+
+.avatar-foto-user {
+    border-radius: 50%;
+}
+
+.avatar-info {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: normal;
+}
+
+.avatar .avatar-name {
+    font-size: 22px;
+    line-height: 22px;
+    color: #FFFFFF;
+}
+
+.avatar .avatar-description {
+    font-size: 14px;
+    line-height: 16px;
+    color: #8B8DA9;
+}
+
 .room {
     width: 70%;
-    border: 1px solid black;
 }
 
 .main-chat {
     display: flex;
 }
+.menu-left__search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu-left__search-field {
+    /* border: 1px solid white; */
+    padding: 10px;
+    margin: 30px;
+    border: 0;
+    border-bottom: 1px solid white;
+    background: #261C46;
+    color: #FFFFFF;
+    outline: unset;
+}
+
+.main-chat__user-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    list-style-type: none;
+}
+
+.main-chat__user-list_user {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background: #261C46;
+    border-radius: 50%;
+}
+
+.main-chat__user-list_user:first-child {
+    margin-top: 30px;
+}
 
 .menu-left {
-    border: 1px solid black;
     height: 100vh;
     width: 30%;
+    color: #FFFFFF;
+    background: #261C46;
 }
 
 .chat-window {
     width: 70%;
-    border: 1px solid black;
-    position: relative;
+    background: #EBEAFD;
 }
 
 .input-form {
     position: absolute;
     background: lightgray;
     padding: 3px;
-    bottom: 30px;
+    bottom: 0px;
     width: 100%;
 }
 

@@ -19,6 +19,11 @@ io.on('connection', function (socket) {
     clientInfo[socket.id] = req;
     console.log('joined Room = ' + req.room);
     socket.join(req.room);
+
+    socket.broadcast.to(req.room).emit("message", {
+      name: "System",
+      text: req.name + " has joined"
+    })
   })
 
   socket.on('chat message', function (info) {
