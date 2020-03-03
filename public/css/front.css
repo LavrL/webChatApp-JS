@@ -93,7 +93,7 @@ body {
 .input-form__button_blue {
     color: white;
     border: 1px solid #2e6da4;
-    background-color: #337ab7;
+    background-color: #2e6da4;
 }
 
 @media only screen and (max-width: 600px) {

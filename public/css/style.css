@@ -20,7 +20,7 @@ body {
 }
 
 .avatar {
-    width: 30%;
+    width: 20%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -56,7 +56,7 @@ body {
 }
 
 .room {
-    width: 70%;
+    width: 80%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -121,13 +121,13 @@ body {
 
 .menu-left {
     height: 100vh;
-    width: 30%;
+    width: 20%;
     color: #FFFFFF;
     background: #261C46;
 }
 
 .chat-window {
-    width: 70%;
+    width: 80%;
     background: #EBEAFD;
 }
 
