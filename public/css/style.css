@@ -163,6 +163,10 @@ body {
     margin-bottom: 40px
 }
 
+#messages .messages-name {
+    font-size: 20px;
+}
+
 #messages li {
     padding: 15px 20px;
 }
