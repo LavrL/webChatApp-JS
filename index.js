@@ -7,7 +7,7 @@ const connect = require("./dbconnect");
 const bodyParser = require("body-parser");
 const chatRouter = require("./route/chatroute");
 
-server.listen(3000);
+server.listen(process.env.PORT ||3000);
 
 app.use(bodyParser.json());
 app.use("/chats", chatRouter);
