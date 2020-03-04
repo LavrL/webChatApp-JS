@@ -1,4 +1,4 @@
-var validateForm = require('../scripts/frontScript');
+var validateForm = require('../js/frontScript');
 
 test('checks if forms validation function exists', () => {
     expect(validateForm).toBeDefined();

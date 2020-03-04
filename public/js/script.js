@@ -1,8 +1,4 @@
-var name = parseSubmitRequest("username") || 'Anonymous';
-var room = parseSubmitRequest("room") || 'No Room Selected';
-
 function parseSubmitRequest(variable) {
-
     var query = window.location.search.substring(1);
     var vars = query.split('&');
     for (var i = 0; i < vars.length; i++) {
@@ -14,5 +10,11 @@ function parseSubmitRequest(variable) {
     return undefined;
 };
 
+function handleErrors(response) {
+    if (!response.ok) {
+        throw Error(response.status);
+    }
+    return response.json();
+}
 
-module.exports =  parseSubmitRequest;
+module.exports = { parseSubmitRequest, handleErrors };

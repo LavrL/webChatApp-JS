@@ -2,26 +2,20 @@ const express = require('express');
 const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io').listen(server);
-
-server.listen(process.env.PORT || 3000);
-
-//database connection
 const Chat = require("./models/chat");
 const connect = require("./dbconnect");
-
 const bodyParser = require("body-parser");
 const chatRouter = require("./route/chatroute");
 
+server.listen(3000);
+
 app.use(bodyParser.json());
-
 app.use("/chats", chatRouter);
-
 app.use(express.static(__dirname + '/public'));
 
 users = [];
 connection = [];
 var clientInfo = {};
-
 
 io.on('connection', function (socket) {
   console.log("connected successfully");
@@ -39,10 +33,14 @@ io.on('connection', function (socket) {
   })
 
   socket.on('chat message', function (info) {
-    socket.broadcast.to(info.room).emit("chat message", { message: info.msg, sender: info.name } )
+    socket.broadcast.to(info.room).emit("chat message", {
+      message: info.msg,
+      sender: info.name
+    });
+
     console.log('received message: ' + info.msg);
 
-    connect.then(db => {
+    connect.then(() => {
       console.log("connected to the server");
     });
 
@@ -54,7 +52,7 @@ io.on('connection', function (socket) {
     chatMessage.save();
   });
 
-  socket.on('disconnect', function (data) {
+  socket.on('disconnect', function () {
     connection.splice(connection.indexOf(socket), 1);
     console.log("Disconnected.");
   });

@@ -1,6 +1,6 @@
-//var io = require('socket.io');
-var socket = io();
-//var $ = require('jquery');
+const socket = io();
+var name = parseSubmitRequest("username") || 'Anonymous';
+var room = parseSubmitRequest("room") || 'No Room Selected';
 
 $(".room-title").text('channel - ' + room);
 $(".avatar-name").text(name);
@@ -18,13 +18,12 @@ $(function () {
     });
 });
 
+
 (function () {
-    fetch("http://localhost:3000/chats")
-        .then(data => {
-            //console.log(data.json());
-            return data.json();
-        })
+    fetch("/chats")
+        .then(handleErrors)
         .then(json => {
+            // console.log(json)
             json.map(data => {
                 let userMessageStyle = [
                     'font-size: 16px',
@@ -39,6 +38,9 @@ $(function () {
                               .append(userSaid)
                               .append(userMessage));
             });
+        })
+        .catch(error =>{
+            console.log("Error = " + error)
         });
 })();
 
@@ -64,7 +66,7 @@ socket.on('chat message', function (msg) {
 socket.on("connect", function () {
     console.log("Connected to Socket I/O Server!");
     console.log(name + " wants to join channel " + room);
-    socket.emit('joinRoom', {    // to join a specific room
+    socket.emit('joinRoom', {
         name: name,
         room: room
     });
