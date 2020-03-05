@@ -11,19 +11,21 @@ body {
 
 .container {
     width: 100%;
-    margin-right: auto;
-    margin-left: auto;
+    margin: 0 auto;
 }
 
 .header {
     display: flex;
 }
 
-.avatar {
-    width: 20%;
+.flex__align-center {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.avatar {
+    width: 20%;
     padding: 10px;
     background: #261C46;
 }
@@ -38,7 +40,6 @@ body {
 }
 
 .avatar-info {
-    font-family: 'Roboto';
     font-style: normal;
     font-weight: normal;
 }
@@ -57,10 +58,7 @@ body {
 
 .room {
     width: 80%;
-    display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }
 
 .room-title {
@@ -79,12 +77,6 @@ body {
     display: flex;
 }
 
-.menu-left__search {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .menu-left__search-field {
     width: 60%;
     padding: 10px;
@@ -97,21 +89,18 @@ body {
 }
 
 .main-chat__user-list {
-    display: flex;
     flex-direction: column;
-    align-items: center;
     list-style-type: none;
 }
+
 .main-chat__user-list_online {
     margin-top: 10px;
     text-align: center;
     color: green;
 }
+
 .main-chat__user-list_user {
     width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     padding: 15px;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -138,7 +127,6 @@ body {
 .input-form {
     position: absolute;
     background: slateblue;
-    ;
     padding: 3px;
     bottom: 0px;
     width: inherit;
@@ -176,14 +164,14 @@ body {
 }
 
 #messages li:nth-child(even) {
-    background: #eee;
+    background: #EEE;
     color: black;
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
 }
 
-ul {
+.messages-list {
     overflow-y: auto;
     height: 80vh;
 }
