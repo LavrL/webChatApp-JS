@@ -16,7 +16,7 @@ app.use(express.static(__dirname + '/public'));
 
 users = [];
 connection = [];
-var clientInfo = {};
+let clientInfo = {};
 
 io.on('connection', function (socket) {
   console.log("connected successfully");

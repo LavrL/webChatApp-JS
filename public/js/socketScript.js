@@ -27,26 +27,30 @@ const funcSubmit = () => {
 const formChat = document.getElementById('btn');
 formChat.addEventListener('click', funcSubmit);
 
+const createMessage = (data) => {
+    const userMessage = document.createElement('span');
+    userMessage.setAttribute('style', userMessageStyle);
+    userMessage.innerHTML = data.message;
+
+    const userSaid = document.createElement('span');
+    userSaid.innerHTML = data.sender + ' says: ';
+
+    const messages = document.getElementById('messages');
+    const messagesLi = document.createElement('li');
+
+    messagesLi.setAttribute('style', 'color: blue');
+    messagesLi.appendChild(userSaid);
+    messagesLi.appendChild(userMessage);
+    messages.appendChild(messagesLi);
+
+};
+
 const fetchChatMessages = () => {
     fetch("/chats")
         .then(handleErrors)
         .then(json => {
             json.map(data => {
-                const userMessage = document.createElement('span');
-                userMessage.setAttribute('style', userMessageStyle);
-                userMessage.innerHTML = data.message;
-
-                const userSaid = document.createElement('span');
-                userSaid.innerHTML = data.sender + ' says: ';
-
-                const messages = document.getElementById('messages');
-                const messagesLi = document.createElement('li');
-
-                messagesLi.setAttribute('style', 'color: blue');
-                messagesLi.appendChild(userSaid);
-                messagesLi.appendChild(userMessage);
-                messages.appendChild(messagesLi);
-
+                createMessage(data);
             });
             let objDiv = document.getElementById("messages");
             objDiv.scrollTop = objDiv.scrollHeight;
@@ -58,22 +62,7 @@ const fetchChatMessages = () => {
 
 socket.on('chat message', function (msg) {
     console.log('typed message', msg.message);
-
-    const userMessage = document.createElement('span');
-    userMessage.setAttribute('style', userMessageStyle);
-    userMessage.innerHTML = data.message;
-
-    const userSaid = document.createElement('span');
-    userSaid.innerHTML = data.sender + ' says: ';
-
-
-    const messages = document.getElementById('messages');
-    const messagesLi = document.createElement('li');
-    messagesLi.setAttribute('style', 'color: blue');
-    messagesLi.appendChild(userSaid);
-    messagesLi.appendChild(userMessage);
-    messages.appendChild(messagesLi);
-
+    createMessage(data);
     messages.animate({ scrollTop: messages.prop("scrollHeight") }, 500);
 });
 

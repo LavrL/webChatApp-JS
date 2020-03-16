@@ -6,7 +6,7 @@ test('checks if parseSubmitRequest function exists', () => {
 });
 
 test('checks if parseSubmitRequest works', () => {
-    var variable = 'username';
+    let variable = 'username';
     expect(parseSubmitRequest(variable)).toBe('lavr1');
 });
 
