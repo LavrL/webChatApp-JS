@@ -2,8 +2,12 @@ const socket = io();
 var name = parseSubmitRequest("username") || 'Anonymous';
 var room = parseSubmitRequest("room") || 'No Room Selected';
 
-$(".room-title").text('channel - ' + room);
-$(".avatar-name").text(name);
+const roomTitle = document.querySelector('.room-title');
+roomTitle.innerHTML = 'channel - ' + room;
+//$(".room-title").text('channel - ' + room);
+//$(".avatar-name").text(name);
+const avatarName = document.querySelector('.avatar-name');
+avatarName.innerHTML = name;
 
 $(function () {
     var socket = io();
@@ -15,8 +19,23 @@ $(function () {
         });
         $('#m').val('');
         return false;
-    });
+    })
 });
+// const formChat = document.getElementById('submit1');
+// console.log(formChat);
+// formChat.addEventListener('click', funcSubmit);
+
+// function funcSubmit() {
+//     //event.preventDefault();
+//     socket.emit('chat message', {
+//         msg: $('#m').val(),
+//         room: room,
+//         name: name
+//     });
+//     $('#m').val('');
+//     return false;
+// };
+// })();
 
 
 (function () {
@@ -30,19 +49,19 @@ $(function () {
                     'color: black',
                     'padding-left: 10px'
                 ].join(';');
-                var userMessage = $('<span />').attr('style',userMessageStyle)
-                                               .html(data.message);
+                var userMessage = $('<span />').attr('style', userMessageStyle)
+                    .html(data.message);
                 var userSaid = $('<span />').html(data.sender + ' says: ');
                 $('#messages').append($('<li>')
-                              .css("color", "blue")
-                              .append(userSaid)
-                              .append(userMessage));
+                    .css("color", "blue")
+                    .append(userSaid)
+                    .append(userMessage));
             });
         })
-        .catch(error =>{
+        .catch(error => {
             console.log("Error = " + error)
         });
-})();
+});
 
 socket.on('chat message', function (msg) {
     console.log('typed message', msg.msg);
@@ -53,12 +72,12 @@ socket.on('chat message', function (msg) {
     ].join(';');
 
     var userMessage = $('<span />').attr('style', userMessageStyle)
-                                    .html(msg.message);
+        .html(msg.message);
     var userSaid = $('<span />').html(msg.sender + ' says: ');
     $('#messages').append($('<li>')
-                  .css("color", "blue")
-                  .append(userSaid)
-                  .append(userMessage));
+        .css("color", "blue")
+        .append(userSaid)
+        .append(userMessage));
     $('#messages').animate({ scrollTop: $('#messages').prop("scrollHeight") }, 500);
 });
 

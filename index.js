@@ -10,6 +10,7 @@ const chatRouter = require("./route/chatroute");
 server.listen(process.env.PORT ||3000);
 
 app.use(bodyParser.json());
+// console.log('chatRouter = ', chatRouter);
 app.use("/chats", chatRouter);
 app.use(express.static(__dirname + '/public'));
 
