@@ -17,4 +17,15 @@ function handleErrors(response) {
     return response.json();
 }
 
-module.exports = { parseSubmitRequest, handleErrors };
+const funcSubmit = () => {
+    socket.emit('chat message', {
+        msg: document.getElementById('postedMessage').value,
+        room: room,
+        name: name
+    });
+    document.getElementById('postedMessage').value = '';
+    location.reload();
+    return false;
+};
+
+module.exports = { parseSubmitRequest, handleErrors, funcSubmit };
