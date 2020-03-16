@@ -9,36 +9,36 @@ roomTitle.innerHTML = 'channel - ' + room;
 const avatarName = document.querySelector('.avatar-name');
 avatarName.innerHTML = name;
 
-$(function () {
-    var socket = io();
-    $('form').submit(function () {
-        socket.emit('chat message', {
-            msg: $('#m').val(),
-            room: room,
-            name: name
-        });
-        $('#m').val('');
-        return false;
-    })
-});
-// const formChat = document.getElementById('submit1');
-// console.log(formChat);
-// formChat.addEventListener('click', funcSubmit);
+// $(document).ready(function () {
+//     var socket = io();
+//     $('form').submit(function () {
+//         socket.emit('chat message', {
+//             msg: $('#m').val(),
+//             room: room,
+//             name: name
+//         });
+//         $('#m').val('');
+//         return false;
+//     })
+// });
+const formChat = document.getElementById('btn');
+console.log(formChat);
+formChat.addEventListener('click', funcSubmit);
 
-// function funcSubmit() {
-//     //event.preventDefault();
-//     socket.emit('chat message', {
-//         msg: $('#m').val(),
-//         room: room,
-//         name: name
-//     });
-//     $('#m').val('');
-//     return false;
-// };
-// })();
+function funcSubmit() {
+    //event.preventDefault();
+    socket.emit('chat message', {
+        msg: $('#m').val(),
+        room: room,
+        name: name
+    });
+    $('#m').val('');
+    location.reload();
+    return false;
+};
 
 
-(function () {
+$(document).ready(function () {
     fetch("/chats")
         .then(handleErrors)
         .then(json => {
@@ -57,6 +57,8 @@ $(function () {
                     .append(userSaid)
                     .append(userMessage));
             });
+            let objDiv = document.getElementById("messages");
+            objDiv.scrollTop = objDiv.scrollHeight;
         })
         .catch(error => {
             console.log("Error = " + error)
@@ -64,7 +66,7 @@ $(function () {
 });
 
 socket.on('chat message', function (msg) {
-    console.log('typed message', msg.msg);
+    console.log('typed message', msg.message);
     let userMessageStyle = [
         'font-size: 16px',
         'color: black',
@@ -91,10 +93,10 @@ socket.on("connect", function () {
     });
 });
 
-socket.on("message", function (msg) {
-    console.log("new message ");
-    var $messages = $("#messages");
-    var $message = $('<li></li>');
-    $message.append("<p>" + msg.text + "</p>");
-    $messages.append($message);
-})
+// socket.on("message", function (msg) {
+//     console.log("new message ");
+//     var $messages = $("#messages");
+//     var $message = $('<li></li>');
+//     $message.append("<p>" + msg.text + "</p>");
+//     $messages.append($message);
+// })
