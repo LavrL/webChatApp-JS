@@ -16,6 +16,29 @@ const userMessageStyle = [
 const formChat = document.getElementById('btn');
 formChat.addEventListener('click', funcSubmit);
 
+const messageInput = document.getElementById('postedMessage');
+const typing = document.getElementById('typing');
+
+messageInput.addEventListener('keypress', () => {
+    socket.emit('typing', {
+        name: name,
+        message: ' is typing ...'
+    })
+});
+socket.on('notifyTyping', data => {
+    typing.innerHTML = data.name + ' ' + data.message;
+    console.log(data.name + data.message)
+});
+
+messageInput.addEventListener('keyup', () => {
+    socket.emit('stopTyping', "");
+});
+
+socket.on('notifyStopTyping', () => {
+    typing.innerHTML = ""
+});
+
+
 const createMessage = (data) => {
     const userMessage = document.createElement('span');
     userMessage.setAttribute('style', userMessageStyle);
@@ -43,8 +66,10 @@ socket.on("message", function (msg) {
     console.log("new message ");
     const messages = document.getElementById('messages');
     const message = document.createElement('li');
-    message.innerHTML = msg.text;
+    message.setAttribute('style', userMessageStyle);
+    message.innerHTML ='<p>' +  msg.text + '</p';
     messages.appendChild(message);
+
     let objDiv = document.getElementById("messages");
     objDiv.scrollTop = objDiv.scrollHeight;
 })

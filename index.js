@@ -7,7 +7,7 @@ const connect = require("./dbconnect");
 const bodyParser = require("body-parser");
 const chatRouter = require("./route/chatroute");
 
-server.listen(process.env.PORT ||3000);
+server.listen(process.env.PORT || 3000);
 
 app.use(bodyParser.json());
 app.use("/chats", chatRouter);
@@ -31,6 +31,17 @@ io.on('connection', function (socket) {
       text: req.name + " has joined"
     })
   })
+
+  socket.on('typing', data => {
+    socket.broadcast.emit('notifyTyping', {
+      name: data.name,
+      message: data.message
+    })
+  });
+
+  socket.on('stopTyping', () => {
+    socket.broadcast.emit('notifyStopTyping')
+  });
 
   socket.on('chat message', function (info) {
     socket.broadcast.to(info.room).emit("chat message", {
