@@ -1,5 +1,4 @@
 const express = require("express");
-// const bodyParser = require("body-parser");
 const connectdb = require("../dbconnect");
 const chats = require("../models/chat");
 
@@ -12,7 +11,6 @@ router.route("/").get((req, res, next) => {
 
     console.log('in router ...', chosenRoom);
     connectdb.then(() => {
-        //console.log(req.app.get(room));
         chats.find({'room': chosenRoom.room}).then(chat => {
             //console.log('chat ', chat);
             res.json(chat);

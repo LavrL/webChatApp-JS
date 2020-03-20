@@ -6,11 +6,9 @@ const Chat = require("./models/chat");
 const connect = require("./dbconnect");
 const bodyParser = require("body-parser");
 
-
 server.listen(process.env.PORT || 3000);
 
 app.use(bodyParser.json());
-//app.use("/chats", chatRouter);
 app.use(express.static(__dirname + '/public'));
 
 users = [];
@@ -23,10 +21,10 @@ io.on('connection', function (socket) {
 
   socket.on('joinRoom', function (req) {
     clientInfo[socket.id] = req;
-    const chatRouter = require("./route/chatroute");
     var room = req.room; 
     exports.room = room;
-
+    const chatRouter = require("./route/chatroute");
+    
     app.use("/chats", chatRouter);
     console.log('joined Room = ' + req.room);
     socket.join(req.room);

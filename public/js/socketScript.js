@@ -79,6 +79,7 @@ socket.on("connect", function () {
     console.log("Connected to Socket I/O Server!");
     console.log(name + " wants to join channel " + room);
     socket.emit('joinRoom', new MessageItem(name, room));
+    App.fetchChatMessages();
 });
 
 class MessageItem {
@@ -105,4 +106,3 @@ class App {
     }
 };
 
-App.fetchChatMessages()
