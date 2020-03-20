@@ -5,12 +5,12 @@ const io = require('socket.io').listen(server);
 const Chat = require("./models/chat");
 const connect = require("./dbconnect");
 const bodyParser = require("body-parser");
-const chatRouter = require("./route/chatroute");
+
 
 server.listen(process.env.PORT || 3000);
 
 app.use(bodyParser.json());
-app.use("/chats", chatRouter);
+//app.use("/chats", chatRouter);
 app.use(express.static(__dirname + '/public'));
 
 users = [];
@@ -23,9 +23,14 @@ io.on('connection', function (socket) {
 
   socket.on('joinRoom', function (req) {
     clientInfo[socket.id] = req;
+    const chatRouter = require("./route/chatroute");
+    var room = req.room; 
+    exports.room = room;
+
+    app.use("/chats", chatRouter);
     console.log('joined Room = ' + req.room);
     socket.join(req.room);
-
+    
     socket.broadcast.to(req.room).emit("message", {
       name: "System",
       text: req.name + " has joined"
