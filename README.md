@@ -1,6 +1,6 @@
 # Web Chat App on Js
 
-### [View the demo](https://web-chat-app-js.herokuapp.com/)
+
 
 ## List of included features
 
