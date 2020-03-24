@@ -9,18 +9,35 @@ class Model {
         return response.json();
     }
 
-    initSocketOnRoom(room, name) {
+    initSocketOnRoom(room, name,cb) {
         const socket = io();
+        
+        // Socket connect
         socket.on("connect", () => {
             console.log("Connected to Socket I/O Server!");
             console.log(name + " wants to join channel " + room);
             socket.emit('joinRoom', { name: name, room: room });
         });
-    }
 
-    initSocketOnMessages(cb) {
-        //const socket = io();
-        this.fetchChatMessages(cb);
+        // Message about new connected user  
+        socket.on("message", function (msg) {
+            const messages = document.getElementById('messages');
+            const message = document.createElement('li');
+            
+            message.classList.add('message-style');
+            message.innerHTML = '<p>' + msg.text + '</p';
+            messages.appendChild(message);
+
+            let objDiv = document.getElementById("messages");
+            objDiv.scrollTop = objDiv.scrollHeight;
+        });
+
+        // Posted message 
+        socket.on('chat message', function (msg) {
+            console.log('typed message', msg.message);
+            cb(msg);
+        });
+
     }
 
     fetchChatMessages(cb) {
@@ -38,42 +55,6 @@ class Model {
             });
     }
 
-    initSocketOnChatMessages(cb) {
-        const socket = io();
-
-        socket.on('chat message', function (msg) {
-            console.log('typed message', msg.message);
-            cb(msg);
-        });
-    };
-
-    initSocketOnNewMessage() {
-        const socket = io();
-        socket.on("message", function (msg) {
-            console.log("new message ");
-            const messages = document.getElementById('messages');
-            const message = document.createElement('li');
-            message.setAttribute('style', userMessageStyle);
-            message.innerHTML = '<p>' + msg.text + '</p';
-            messages.appendChild(message);
-
-            let objDiv = document.getElementById("messages");
-            objDiv.scrollTop = objDiv.scrollHeight;
-        })
-    }
-
-    initSocketOn() {
-        const socket = io();
-
-        socket.on('notifyTyping', data => {
-            typing.innerHTML = data.name + ' ' + data.message;
-            console.log(data.name + data.message)
-        });
-
-        socket.on('notifyStopTyping', () => {
-            typing.innerHTML = ""
-        });
-    };
 }
 
 class View {
@@ -82,41 +63,48 @@ class View {
         this.name = this.parseSubmitRequest("username");
         this.room = this.parseSubmitRequest('room');
 
-        this.roomTitle = this.getQueryElement('.room-title');
+        this.roomTitle = document.querySelector('.room-title');
         this.roomTitle.innerHTML = 'channel - ' + this.room;
 
-        this.avatarName = this.getQueryElement('.avatar-name');
+        this.avatarName = document.querySelector('.avatar-name');
         this.avatarName.innerHTML = this.name;
 
-        const userMessageStyle = [
-            'font-size: 1rem',
-            'color: black',
-            'padding-left: 10px'
-        ].join(';');
-
-        this.formChat = this.getByIdElement('btn');
+        this.formChat = document.getElementById('btn');
         this.formChat.addEventListener('click', this.funcSubmit.bind(null, this.room, this.name));
-
-        this.messageInput = this.getByIdElement('postedMessage');
+        
+        this.messageInput = document.getElementById('postedMessage');
         this.messageInput.addEventListener('keypress', () => {
             socket.emit('typing', {
-                name: name,
+                name: this.name,
                 message: ' is typing ...'
             })
         });
+        this.messageInput.addEventListener('keyup', (event) => {
+            event.preventDefault();
+            if (event.keyCode === 13) {
+                this.formChat.click();
+            }
+        });
 
         this.messageInput.addEventListener('keyup', () => {
             socket.emit('stopTyping', "");
         });
 
-        this.typing = this.getByIdElement('typing');
-        this.messageInput.addEventListener('keyup', () => {
-            socket.emit('stopTyping', "");
+        this.typing = document.getElementById('typing');
+
+        // Typing effect "User is typing ..." 
+        socket.on('notifyTyping', function(data) {
+            console.log('data = ', data);
+            typing.innerHTML = data.name + ' ' + data.message;
+        });
+
+        socket.on('notifyStopTyping', () => {
+            typing.innerHTML = ""
         });
 
     }
 
-    funcSubmit(room) {
+    funcSubmit(room, name) {
         const socket = io();
         console.log('room ', room);
         socket.emit('chat message', {
@@ -147,19 +135,9 @@ class View {
         return element;
     };
 
-    getQueryElement(selector) {
-        const element = document.querySelector(selector);
-        return element;
-    };
-
-    getByIdElement(selector) {
-        const element = document.getElementById(selector);
-        return element;
-    };
-
     createMessage = data => {
-        const userMessage = this.createElement('span');
-        //userMessage.setAttribute('style', userMessageStyle);
+        const userMessage = this.createElement('span', 'message-style');
+        //userMessage.classList.add('message-style');
         userMessage.innerHTML = data.message;
 
         const userSaid = this.createElement('span');
@@ -180,10 +158,8 @@ class Controller {
         this.model = model;
         this.view = view;
 
-        this.model.initSocketOnRoom(this.view.room, this.view.name);
-        this.model.initSocketOnMessages(this.view.createMessage);
-        this.model.initSocketOnChatMessages(this.view.createMessage);
-        this.model.initSocketOnNewMessage();
+        this.model.initSocketOnRoom(this.view.room, this.view.name, this.view.createMessage);
+        this.model.fetchChatMessages(this.view.createMessage);
     }
 }
 
