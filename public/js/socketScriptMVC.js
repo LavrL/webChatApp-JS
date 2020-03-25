@@ -27,7 +27,8 @@ class Model {
 
             users.forEach((user) => {
                 const onlineUser = document.createElement('li');
-                onlineUser.innerHTML = '<div>' + user.name + '</div>';
+                onlineUser.classList.add('flex__align-center');
+                onlineUser.innerHTML = '<span class="dot"></span><p>' + user.name + '</p>';
                 const onlineUsers = document.getElementById('onlineList');
                 onlineUsers.append(onlineUser);
             })
@@ -108,7 +109,6 @@ class View {
 
         // Typing effect "User is typing ..." 
         socket.on('notifyTyping', function (data) {
-            //console.log('data = ', data);
             typing.innerHTML = data.name + ' ' + data.message;
         });
 

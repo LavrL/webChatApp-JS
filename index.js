@@ -34,10 +34,13 @@ io.on('connection', function (socket) {
     io.to(req.room).emit('roomData', { users: users });
     console.log('users = ', users);
 
-    socket.broadcast.to(req.room).emit("message", {
-      name: "System",
-      text: req.name + " has joined"
-    })
+    // const existingUser = users.find((user) => user.name === req.name);
+    // if (!existingUser) {
+      socket.broadcast.to(req.room).emit("message", {
+        name: "System",
+        text: req.name + " has joined"
+      });
+    // }
   })
 
   socket.on('typing', data => {
