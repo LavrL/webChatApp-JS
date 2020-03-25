@@ -9,9 +9,9 @@ class Model {
         return response.json();
     }
 
-    initSocketOnRoom(room, name,cb) {
+    initSocketOnRoom(room, name, cb) {
         const socket = io();
-        
+
         // Socket connect
         socket.on("connect", () => {
             console.log("Connected to Socket I/O Server!");
@@ -19,11 +19,25 @@ class Model {
             socket.emit('joinRoom', { name: name, room: room });
         });
 
+        // Online users
+        socket.on('roomData', ({ users }) => {
+            console.log('users = ', users);
+            const onlineList = document.getElementById('onlineList');
+            onlineList.innerHTML = '';
+
+            users.forEach((user) => {
+                const onlineUser = document.createElement('li');
+                onlineUser.innerHTML = '<div>' + user.name + '</div>';
+                const onlineUsers = document.getElementById('onlineList');
+                onlineUsers.append(onlineUser);
+            })
+        });
+
         // Message about new connected user  
         socket.on("message", function (msg) {
             const messages = document.getElementById('messages');
             const message = document.createElement('li');
-            
+
             message.classList.add('message-style');
             message.innerHTML = '<p>' + msg.text + '</p';
             messages.appendChild(message);
@@ -71,7 +85,7 @@ class View {
 
         this.formChat = document.getElementById('btn');
         this.formChat.addEventListener('click', this.funcSubmit.bind(null, this.room, this.name));
-        
+
         this.messageInput = document.getElementById('postedMessage');
         this.messageInput.addEventListener('keypress', () => {
             socket.emit('typing', {
@@ -93,8 +107,8 @@ class View {
         this.typing = document.getElementById('typing');
 
         // Typing effect "User is typing ..." 
-        socket.on('notifyTyping', function(data) {
-            console.log('data = ', data);
+        socket.on('notifyTyping', function (data) {
+            //console.log('data = ', data);
             typing.innerHTML = data.name + ' ' + data.message;
         });
 
