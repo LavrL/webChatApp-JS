@@ -115,7 +115,8 @@ class View {
         socket.on('notifyStopTyping', () => {
             typing.innerHTML = ""
         });
-
+        this.createElement = this.createElement.bind(this);
+        this.createMessage = this.createMessage.bind(this);
     }
 
     funcSubmit(room, name) {
@@ -149,7 +150,7 @@ class View {
         return element;
     };
 
-    createMessage = data => {
+    createMessage(data) {
         const userMessage = this.createElement('span', 'message-style');
         //userMessage.classList.add('message-style');
         userMessage.innerHTML = data.message;
