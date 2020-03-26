@@ -21,7 +21,6 @@ class Model {
 
         // Online users
         socket.on('roomData', ({ users }) => {
-            console.log('users = ', users);
             const onlineList = document.getElementById('onlineList');
             onlineList.innerHTML = '';
 
@@ -49,7 +48,6 @@ class Model {
 
         // Posted message 
         socket.on('chat message', function (msg) {
-            console.log('typed message', msg.message);
             cb(msg);
         });
 
@@ -121,7 +119,6 @@ class View {
 
     funcSubmit(room, name) {
         const socket = io();
-        console.log('room ', room);
         socket.emit('chat message', {
             msg: document.getElementById('postedMessage').value,
             room: room,
