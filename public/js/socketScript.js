@@ -27,7 +27,6 @@ messageInput.addEventListener('keypress', () => {
 });
 socket.on('notifyTyping', data => {
     typing.innerHTML = data.name + ' ' + data.message;
-    console.log(data.name + data.message)
 });
 
 messageInput.addEventListener('keyup', () => {
@@ -58,12 +57,10 @@ const createMessage = (data) => {
 };
 
 socket.on('chat message', function (msg) {
-    console.log('typed message', msg.message);
     createMessage(msg);
 });
 
 socket.on("message", function (msg) {
-    console.log("new message ");
     const messages = document.getElementById('messages');
     const message = document.createElement('li');
     message.setAttribute('style', userMessageStyle);

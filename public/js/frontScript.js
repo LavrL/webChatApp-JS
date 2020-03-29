@@ -6,5 +6,6 @@ function validateForm() {
         return false;
     }
     return true;
-}
-module.exports = validateForm;
+};
+
+module.exports =  validateForm;
