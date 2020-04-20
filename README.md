@@ -19,6 +19,17 @@ npm i
 ```bash
 npm run start
 ```
+You can view the development server at localhost:3000.
+
+## Testing
+```bash
+npm run test
+```
+
+### Test coverage report
+```bash
+npm run test_stat
+```
 
 ## Used:
 + Socket.io
