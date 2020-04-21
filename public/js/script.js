@@ -3,6 +3,7 @@ function parseSubmitRequest(variable) {
     const vars = query.split('&');
     for (let i = 0; i < vars.length; i++) {
         let pair = vars[i].split('=');
+        /* istanbul ignore else*/
         if (pair[0] == variable) {
             return pair[1];
         }
@@ -13,7 +14,7 @@ function parseSubmitRequest(variable) {
 function handleErrors(response) {
     if (!response.ok) {
         throw Error(response.status);
-    }
+    } 
     return response.json();
 }
 
