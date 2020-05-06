@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "jest": "^25.1.0",
-    "jquery": "^3.4.1"
+    "jquery": "^3.5.0"
   },
   "jest": {
     "testURL": "https://web-chat-app-js.herokuapp.com/chat.html?username=lavr1"
