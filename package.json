@@ -9,7 +9,7 @@
     "fetch-mock": "^9.1.0",
     "mongoose": "^5.9.3",
     "node-fetch": "^2.6.0",
-    "socket.io": "^2.3.0"
+    "socket.io": "^2.4.0"
   },
   "scripts": {
     "start": "node index.js",
